@@ -22,14 +22,14 @@ const Header = () => {
             </Form>
           </Nav>
           <Nav style={{ maxHeight: "100px" }} navbarScroll>
-            <Nav.Link>
-              <Link to="/mynotes">My Notes</Link>
+            <Nav.Link as={Link} to="/mynotes">
+              My Notes
             </Nav.Link>
 
             <NavDropdown title="Arnab" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+              <NavDropdown.Item>My Profile</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">Logout</NavDropdown.Item>
+              <NavDropdown.Item>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
