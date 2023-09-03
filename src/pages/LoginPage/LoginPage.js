@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { MainScreen } from "../../components";
+import { ErrorMessage, Loading, MainScreen } from "../../components";
 
 import "./loginPage.css";
 
@@ -37,12 +37,15 @@ const LoginPage = () => {
       setLoading(false);
     } catch (error) {
       setError(error.response.data.message);
+      setLoading(false);
     }
   };
 
   return (
-    <MainScreen title="Login">
+    <MainScreen title="LOGIN">
       <div className="loginContainer">
+        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {loading && <Loading />}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email Address</Form.Label>

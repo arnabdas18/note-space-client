@@ -1,0 +1,14 @@
+.registerContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.file-mod:hover {
+    cursor: pointer;
+}
+ 
+span {
+    color: rgb(34, 84, 190);
+    margin-left: 5px;
+}
