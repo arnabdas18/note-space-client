@@ -1,9 +1,12 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../features/user/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
@@ -33,7 +36,7 @@ const Header = () => {
               <NavDropdown.Divider />
               <NavDropdown.Item
                 onClick={() => {
-                  localStorage.removeItem("userInfo");
+                  dispatch(logout());
                   navigate("/");
                 }}
               >
