@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MainScreen, Loading, ErrorMessage } from "../../components";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { userRegister } from "../../features/user/userSlice";
 import "./registerPage.css";
 
 const RegisterPage = () => {
@@ -15,8 +16,9 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const { isLoading, userInfo, error } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const postDetails = (pic) => {
     if (pic.type === "image/jpeg" || pic.type === "image/png") {
@@ -40,41 +42,19 @@ const RegisterPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/mynotes");
+    }
+  }, [navigate, userInfo]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      setMessage(null);
-
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-
-        setLoading(true);
-
-        const { data } = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/users`,
-          {
-            name,
-            email,
-            password,
-            pic,
-          },
-          config
-        );
-        console.log(data);
-
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+      dispatch(userRegister([name, email, password, pic]));
     }
   };
 
@@ -83,7 +63,7 @@ const RegisterPage = () => {
       <div className="registerContainer">
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
-        {loading && <Loading />}
+        {isLoading && <Loading />}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
@@ -138,7 +118,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" disabled={loading}>
+          <Button variant="primary" type="submit">
             Register
           </Button>
         </Form>
