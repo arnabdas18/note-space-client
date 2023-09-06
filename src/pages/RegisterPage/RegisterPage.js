@@ -16,9 +16,11 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const { isLoading, userInfo, error } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { registerUser } = useSelector((store) => store.user);
+  const { isLoading, userInfo, error } = registerUser;
 
   const postDetails = (pic) => {
     if (pic.type === "image/jpeg" || pic.type === "image/png") {

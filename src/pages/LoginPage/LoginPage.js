@@ -9,9 +9,10 @@ import "./loginPage.css";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoading, userInfo, error } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loginUser } = useSelector((store) => store.user);
+  const { isLoading, userInfo, error } = loginUser;
 
   useEffect(() => {
     if (userInfo) {
