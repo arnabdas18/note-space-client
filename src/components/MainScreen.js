@@ -4,7 +4,7 @@ import "./Screen.css";
 
 function MainScreen({ children, title }) {
   return (
-    <div className="mainback">
+    <div className="main-back">
       <Container>
         <Row>
           <div className="page">
