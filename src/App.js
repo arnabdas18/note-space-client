@@ -9,6 +9,7 @@ import {
   RegisterPage,
   CreateNotePage,
   SingleNotePage,
+  ProfilePage,
 } from "./pages";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route exact path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/mynotes" element={<MyNotes search={search} />} />
           <Route path="/createnote" element={<CreateNotePage />} />
           <Route path="/note/:noteId" element={<SingleNotePage />} />
